@@ -6,12 +6,13 @@
       class="input"
       v-model="todoText"
       placeholder="Lear Go language"
+      @input="v.$touch()"
     />
   </div>
 </template>
 
-<script  setup lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue';
 
 export default defineComponent({
     props: {
@@ -25,10 +26,16 @@ export default defineComponent({
         }
         
     },
-    data() {
-        return {
-            
+    computed: {
+      todoText: {
+        get() {
+          return this.value;
+        },
+        set(value: String) {
+          this.v.$touch();
+          this.$emit("input", value);
         }
+      }
     }
 })
 </script>

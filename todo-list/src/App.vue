@@ -8,19 +8,13 @@
 @import './assets/base.css';
 </style>
 
-<script setup lang="ts">
-  import TodoInput from './components/TodoInput.vue';
-  import TodoListVue from './components/TodoList.vue';
+<script lang="ts">
   import TodoFormVue from './components/TodoForm.vue'; 
 
-  export default{
-    data() {
-      return {
-        form: {
-          list: [],
-          todoText:''
-        }
-      }
+  export default {
+    name: "Todo",
+    components: {
+      TodoFormVue
     }
-  }
+  };
 </script>

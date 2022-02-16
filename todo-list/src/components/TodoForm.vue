@@ -1,36 +1,44 @@
 <template>
   <div class="form pt-6">
-      <todo-input-vue v-model="form.todoText" :v="$v.form.todoText" />
-      <div>
-          <todo-list-vue v-model="form.list" :v="$v.form.list" />
-      </div>
+    <form>
+      <todo-input-vue v-model="this.form.todoText" :v="this.form.todoText" />
+      <button type="submit">Submit</button>
+      <todo-list-vue />
+    </form>
   </div>
 </template>
 
-<style>
-@import './assets/base.css';
-</style>
-
-<script setup lang="ts">
+<script lang="ts">
   import TodoInputVue from './TodoInput.vue';
   import TodoListVue from './TodoList.vue';
-  
-  const storage_key: string = "todo-list-items";
 
-  const filters: object = {
-      showAll: (todos) => todos
-  } 
-  export default{
+  export default {
     name: "FormComponent",
-    components: {TodoInputVue, TodoListVue},
+    components: {TodoInputVue, TodoListVue },
 
     data() {
-        return() {
+        return {
             form: {
-                todoText: "",
-                list: []
+                todoText: String,
+                todoList: Array
             }
         }
-    }
+    },
+
+    methods: {
+      submit() {
+        alert("Form submitted");
+        this.form.todoList.push(this.form.todoText);
+      },
+    },
   }
+
+    /*  
+  const storage_key: string = "todo-list-items";
+
+   const filters: object = {
+      showAll: (todos) => todos
+  }  
+  */
+  
 </script>
