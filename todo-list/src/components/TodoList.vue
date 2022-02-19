@@ -1,28 +1,30 @@
 <template>
-    <div v-for="todo in todoList" :key="todo">
-      <p>{{ todo }}</p>
-    </div>
+  <div>
+    <button @click="deleteAll()">Reset</button>
+    <ul>
+      <li v-for="(item, index) in list" :key="item">
+        {{ item }}
+        <button @click="deleteItem(index)">X</button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
+import type { PropType } from "vue";
 
 export default defineComponent({
-    props: {
-        value: {
-            type: String,
-            default: ""
-        }
+  props: {
+    list: Array as PropType<Array<string>>,
+  },
+
+  methods: {
+    deleteItem(index: number) {
+      this.list?.splice(index, 1);
     },
-    computed: {
-      todoList: {
-        get() {
-          return this.value;
-        },
-        set(value: String) {
-          this.$emit("input", value);
-        }
-      }
-    }
-})
+
+    deleteAll() {},
+  },
+});
 </script>

@@ -1,41 +1,26 @@
 <template>
-  <div class="form-group">
+  <form class="form-group" @submit.prevent="submit">
     <label class="mr-2 font-bold text-grey">TODO item</label>
-    <input
-      type="text"
-      class="input"
-      v-model="todoText"
-      placeholder="Lear Go language"
-      @input="v.$touch()"
-    />
-  </div>
+    <input type="text" class="input" v-model="input" placeholder="" />
+    <button type="submit">Submit</button>
+  </form>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    props: {
-        value: {
-            type: String,
-            default: ""
-        },
-        v: {
-            type: Object,
-            required: true
-        }
-        
+  data() {
+    return {
+      input: "",
+    };
+  },
+
+  methods: {
+    submit() {
+      this.$emit("insert", this.input);
+      this.input = "";
     },
-    computed: {
-      todoText: {
-        get() {
-          return this.value;
-        },
-        set(value: String) {
-          this.v.$touch();
-          this.$emit("input", value);
-        }
-      }
-    }
-})
+  },
+});
 </script>
